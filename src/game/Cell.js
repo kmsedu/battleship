@@ -1,6 +1,6 @@
 const Cell = function (coords) {
-  let isShipCell
-  let isAttacked
+  const isShipCell = false
+  const isAttacked = false
 
   return { coords, isShipCell, isAttacked }
 }

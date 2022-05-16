@@ -1,33 +1,19 @@
-const MAX_SHIP_LENGTH = 5
-
-const noParameterError = Error('No parameter')
-const invalidParameterError = Error('Invalid parameter')
-const positionHitError = Error('Position already hit')
-
-const checkParameter = (...args) => {
-  const [parameter, maxLength] = args
-  if (parameter === undefined) throw noParameterError
-  if (
-    parameter < 0 ||
-    parameter > maxLength ||
-    typeof parameter !== 'number' ||
-    Number.isNaN(parameter)
-  ) throw invalidParameterError
-}
+import errorHandler from './errorHandler'
 
 const Ship = (length) => {
-  checkParameter(length, MAX_SHIP_LENGTH)
+  const MAX_SHIP_LENGTH = 5
+  errorHandler.checkParameter(length, MAX_SHIP_LENGTH)
 
   const positions = [...Array(length).keys()].map((index) => {
     return {
-      position: index,
+      index,
       hit: false
     }
   })
 
   const hit = (position) => {
-    checkParameter(position, length)
-    if (positions[position].hit === true) throw positionHitError
+    errorHandler.checkParameter(position, length)
+    if (positions[position].hit === true) throw errorHandler.positionHit
 
     positions[position].hit = true
   }
@@ -38,7 +24,9 @@ const Ship = (length) => {
     return true
   }
 
-  return { length, positions, hit, isSunk }
+  const coords = []
+
+  return { length, positions, hit, isSunk, coords }
 }
 
 export default Ship

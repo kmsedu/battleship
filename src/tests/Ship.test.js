@@ -53,11 +53,11 @@ describe('Ship().positions', () => {
   test('Lists the positions', () => {
     expect(testShip.positions).toEqual(
       [
-        { position: 0, hit: false },
-        { position: 1, hit: false },
-        { position: 2, hit: false },
-        { position: 3, hit: false },
-        { position: 4, hit: false }
+        { index: 0, hit: false },
+        { index: 1, hit: false },
+        { index: 2, hit: false },
+        { index: 3, hit: false },
+        { index: 4, hit: false }
       ]
     )
   })
@@ -88,11 +88,11 @@ describe('Ship().hit', () => {
     testShip.hit(3)
     expect(testShip.positions).toEqual(
       [
-        { position: 0, hit: false },
-        { position: 1, hit: false },
-        { position: 2, hit: false },
-        { position: 3, hit: true },
-        { position: 4, hit: false }
+        { index: 0, hit: false },
+        { index: 1, hit: false },
+        { index: 2, hit: false },
+        { index: 3, hit: true },
+        { index: 4, hit: false }
       ]
     )
   })
@@ -119,5 +119,11 @@ describe('Ship.isSunk()', () => {
   test('Returns true if all positions are hit', () => {
     testShip.hit(4)
     expect(testShip.isSunk()).toBe(true)
+  })
+})
+
+describe('Ship.coords', () => {
+  test('Is an array', () => {
+    expect(Ship(5).coords).toBeInstanceOf(Array)
   })
 })
