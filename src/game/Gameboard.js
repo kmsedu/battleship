@@ -1,0 +1,80 @@
+import Cell from './Cell'
+import errorHandler from './errorHandler'
+
+const Gameboard = () => {
+  const board = {}
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+  letters.forEach((letter) => {
+    board[letter] = [...Array(10).keys()].map((number) => {
+      return Cell([letter, number])
+    })
+  })
+
+  const place = (...args) => {
+    if (args.length === 0) throw errorHandler.noParameter
+    if (args.length <= 2) throw errorHandler.notEnoughParameters
+
+    const [ship, coords, orientation] = args
+    const placementCoords = []
+
+    if (letters.indexOf(coords[0]) + ship.length > letters.length - 1 ||
+        coords[1] + ship.length > 10) {
+      throw errorHandler.invalidParameter
+    }
+
+    if (orientation === 'horizontal' || orientation === undefined) {
+      ship.positions.forEach((position) => {
+        placementCoords.push([
+          letters[letters.indexOf(coords[0]) + position.index],
+          coords[1]
+        ])
+      })
+    } else {
+      ship.positions.forEach((position) => {
+        placementCoords.push([coords[0], coords[1] + position.index])
+      })
+    }
+
+    placementCoords.forEach((coords) => {
+      const [letter, number] = coords
+      if (board[letter][number].isShipCell) throw errorHandler.positionHit
+      ship.coords.push(coords)
+      board[letter][number].isShipCell = true
+    })
+    ships.push(ship)
+  }
+
+  const ships = []
+
+  const receiveAttack = (coords) => {
+    if (coords === undefined) throw errorHandler.noParameter
+
+    const [letter, number] = coords
+
+    if (board[letter][number].isShipCell) {
+      const attackedShip = ships.find((ship) => {
+        return ship.coords.some((shipCoords) => {
+          return shipCoords[0] === letter && shipCoords[1] === number
+        })
+      })
+
+      const attackedShipCoords = attackedShip.coords.find((coords) => {
+        return coords[0] === letter && coords[1] === number
+      })
+
+      const attackedShipPosition = attackedShip.coords.indexOf(attackedShipCoords)
+      attackedShip.hit(attackedShipPosition)
+    }
+
+    board[letter][number].isAttacked = true
+  }
+
+  return {
+    board,
+    ships,
+    place,
+    receiveAttack
+  }
+}
+
+export default Gameboard
