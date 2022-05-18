@@ -68,12 +68,21 @@ const Gameboard = () => {
 
     board[letter][number].isAttacked = true
   }
+  const unattackedCells = () => {
+    const cells = []
 
+    Object.values(board).forEach((letter) => letter.forEach((cell) => {
+      if (!cell.isAttacked) cells.push(cell)
+    }))
+
+    return cells
+  }
   return {
     board,
     ships,
     place,
-    receiveAttack
+    receiveAttack,
+    unattackedCells
   }
 }
 

@@ -24,6 +24,9 @@ describe('Has the correct properties', () => {
   test('Gameboard.receiveAttack', () => {
     expect(Gameboard()).toHaveProperty('receiveAttack')
   })
+  test('Gameboard.unattackedCells', () => {
+    expect(Gameboard()).toHaveProperty('unattackedCells')
+  })
 })
 
 describe('Gameboard.board', () => {
@@ -120,5 +123,14 @@ describe('Gameboard.receiveAttack', () => {
     testBoard.place(testShip, ['A', 1], 'vertical')
     testBoard.receiveAttack(['A', 3])
     expect(testShip.positions[2].hit).toBe(true)
+  })
+})
+
+describe('Gameboard.unattackedCells', () => {
+  test('Is a function', () => {
+    expect(Gameboard().unattackedCells).toBeInstanceOf(Function)
+  })
+  test('Returns an array', () => {
+    expect(Gameboard().unattackedCells()).toBeInstanceOf(Array)
   })
 })
