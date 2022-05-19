@@ -76,7 +76,7 @@ const Gameboard = () => {
     const cells = []
 
     Object.values(board).forEach((letter) => letter.forEach((cell) => {
-      if (!cell.isAttacked && !cell.isShipCell) cells.push(cell)
+      if (!cell.isAttacked) cells.push(cell)
     }))
 
     return cells

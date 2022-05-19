@@ -16,22 +16,21 @@ header {
 
 main {
   flex: 1;
-  background: blue;
 }
 
 .game-window {
   height: 100%;
-  background: red;
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-columns: 1fr 1fr;
+  background: grey;
 }
 
 .game-window > div {
-  background: yellow;
-  height: 600px;
-  width: 600px;
+  background: lightgrey;
+  padding: 1rem;
+
 }
 
 .player-window, .opponent-window {
@@ -44,4 +43,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 3rem;
+  border: 1px solid black;
+  width: 60px;
+  height: 60px;
 }

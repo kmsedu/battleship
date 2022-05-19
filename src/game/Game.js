@@ -54,9 +54,10 @@ const Game = (() => {
     placeShipsRandomly(computerShips, computerBoard)
 
     domHandler.drawBoards(playerBoard, computerBoard)
+    domHandler.listenForAttack(computerBoard)
   }
 
-  return { isGameWon, start }
+  return { isGameWon, start, players, boards }
 })()
 
 export default Game
