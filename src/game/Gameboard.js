@@ -77,12 +77,18 @@ const Gameboard = () => {
 
     return cells
   }
+  const isAllSunk = () => {
+    if (ships.some((ship) => !ship.isSunk())) return false
+
+    return true
+  }
   return {
     board,
     ships,
     place,
     receiveAttack,
-    unattackedCells
+    unattackedCells,
+    isAllSunk
   }
 }
 

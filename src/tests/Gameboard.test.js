@@ -134,3 +134,24 @@ describe('Gameboard.unattackedCells', () => {
     expect(Gameboard().unattackedCells()).toBeInstanceOf(Array)
   })
 })
+
+describe('Gameboard.isAllSunk', () => {
+  test('Is a function', () => {
+    expect(Gameboard().isAllSunk).toBeInstanceOf(Function)
+  })
+  test('Returns a boolean', () => {
+    expect(typeof Gameboard().isAllSunk()).toBe('boolean')
+  })
+  test('Returns true if all ships are sunk', () => {
+    const testBoard = Gameboard()
+    const testShip = Ship(5)
+    testBoard.place(testShip, ['A', 1], 'vertical')
+    expect(testBoard.isAllSunk()).toBe(false)
+    testBoard.receiveAttack(['A', 1])
+    testBoard.receiveAttack(['A', 2])
+    testBoard.receiveAttack(['A', 3])
+    testBoard.receiveAttack(['A', 4])
+    testBoard.receiveAttack(['A', 5])
+    expect(testBoard.isAllSunk()).toBe(true)
+  })
+})
