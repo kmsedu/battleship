@@ -1,7 +1,7 @@
 import Ship from './Ship'
+import domHandler from '../dom/domHandler'
 import Player from './Player'
 import Gameboard from './Gameboard'
-import domHandler from '../dom/domHandler'
 
 const Game = (() => {
   const players = [
@@ -50,14 +50,13 @@ const Game = (() => {
   }
 
   const start = () => {
-    placeShipsRandomly(playerShips, playerBoard)
     placeShipsRandomly(computerShips, computerBoard)
 
     domHandler.drawBoards(playerBoard, computerBoard)
-    domHandler.listenForAttack(computerBoard)
+    domHandler.waitForPlayerPlacement()
   }
 
-  return { isGameWon, start, players, boards }
+  return { isGameWon, start, players, boards, playerShips, computerShips }
 })()
 
 export default Game

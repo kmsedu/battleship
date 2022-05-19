@@ -3,11 +3,14 @@ const drawOpponentBoard = function (opponentBoard, window) {
     letter.forEach((cell) => {
       const cellDiv = document.createElement('div')
       if (cell.isShipCell && cell.isAttacked) {
-        cellDiv.textContent = 'H'
+        cellDiv.classList.value = ''
+        cellDiv.classList.add('hit-ship')
       } else if (cell.isAttacked) {
-        cellDiv.textContent = 'X'
+        cellDiv.classList.value = ''
+        cellDiv.classList.add('missed')
       } else {
-        cellDiv.textContent = ''
+        cellDiv.classList.value = ''
+        cellDiv.classList.add('empty')
       }
       const [letter, number] = cell.coords
       cellDiv.id = `${letter}${number}`

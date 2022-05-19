@@ -17,12 +17,10 @@ const Gameboard = () => {
     const [ship, coords, orientation] = args
     const placementCoords = []
 
-    if (letters.indexOf(coords[0]) + ship.length > letters.length - 1 ||
-        coords[1] + ship.length > 10) {
-      throw errorHandler.invalidParameter
-    }
-
     if (orientation === 'horizontal') {
+      if (letters.indexOf(coords[0]) + ship.length > letters.length) {
+        throw errorHandler.invalidParameter
+      }
       ship.positions.forEach((position) => {
         placementCoords.push([
           letters[letters.indexOf(coords[0]) + position.index],
@@ -30,6 +28,9 @@ const Gameboard = () => {
         ])
       })
     } else {
+      if (coords[1] + ship.length > letters.length) {
+        throw errorHandler.invalidParameter
+      }
       ship.positions.forEach((position) => {
         placementCoords.push([coords[0], coords[1] + position.index])
       })
