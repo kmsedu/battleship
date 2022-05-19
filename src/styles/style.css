@@ -1,3 +1,47 @@
-* {
-  color: red;
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background: lightgray;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+main {
+  flex: 1;
+  background: blue;
+}
+
+.game-window {
+  height: 100%;
+  background: red;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+.game-window > div {
+  background: yellow;
+  height: 600px;
+  width: 600px;
+}
+
+.player-window, .opponent-window {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-auto-flow: column;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

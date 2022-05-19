@@ -12,7 +12,7 @@ const Gameboard = () => {
 
   const place = (...args) => {
     if (args.length === 0) throw errorHandler.noParameter
-    if (args.length <= 2) throw errorHandler.notEnoughParameters
+    if (args.length < 3) throw errorHandler.notEnoughParameters
 
     const [ship, coords, orientation] = args
     const placementCoords = []
@@ -22,7 +22,7 @@ const Gameboard = () => {
       throw errorHandler.invalidParameter
     }
 
-    if (orientation === 'horizontal' || orientation === undefined) {
+    if (orientation === 'horizontal') {
       ship.positions.forEach((position) => {
         placementCoords.push([
           letters[letters.indexOf(coords[0]) + position.index],
@@ -35,9 +35,13 @@ const Gameboard = () => {
       })
     }
 
+    if (placementCoords.some((coords) => {
+      const [letter, number] = coords
+      return board[letter][number].isShipCell === true
+    })) throw errorHandler.positionHit
+
     placementCoords.forEach((coords) => {
       const [letter, number] = coords
-      if (board[letter][number].isShipCell) throw errorHandler.positionHit
       ship.coords.push(coords)
       board[letter][number].isShipCell = true
     })
@@ -72,7 +76,7 @@ const Gameboard = () => {
     const cells = []
 
     Object.values(board).forEach((letter) => letter.forEach((cell) => {
-      if (!cell.isAttacked) cells.push(cell)
+      if (!cell.isAttacked && !cell.isShipCell) cells.push(cell)
     }))
 
     return cells
