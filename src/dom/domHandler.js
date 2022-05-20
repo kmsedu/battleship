@@ -19,7 +19,7 @@ const domHandler = {
     const cellDivs = [...document.querySelectorAll('.enemy-cell')]
     for (const cellDiv of cellDivs) {
       cellDiv.addEventListener('click', () => {
-        if (!Game.isGameWon() && cellDiv.textContent === '') {
+        if (!Game.isGameWon() && cellDiv.classList.contains('empty')) {
           const cellCoords = [cellDiv.id[0], Number(cellDiv.id[1])]
           this.opponentBoard().receiveAttack(cellCoords)
 
@@ -42,7 +42,7 @@ const domHandler = {
   },
   waitForPlayerPlacement () {
     const playerCells = [...this.playerWindow.querySelectorAll('.cell')]
-    const orientationSwitch = document.querySelector('li > button')
+    const orientationSwitch = document.querySelector('.orientation-switch')
     let isVertical
     orientationSwitch.textContent === 'Horizontal'
       ? isVertical = false
