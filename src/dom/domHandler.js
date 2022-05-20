@@ -72,10 +72,16 @@ const domHandler = {
         }
 
         if (Game.playerShips.length === 0) {
+          this.toggleOrientationSwitch()
           this.listenForAttack()
         }
       })
     }
+  },
+  toggleOrientationSwitch () {
+    const orientationSwitch = document.querySelector('.orientation-switch')
+
+    orientationSwitch.classList.toggle('hidden')
   }
 }
 
