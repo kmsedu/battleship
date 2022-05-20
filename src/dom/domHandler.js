@@ -3,6 +3,7 @@ import drawPlayerBoard from './drawPlayerBoard'
 import Game from '../game/Game'
 
 const domHandler = {
+  gameWindow: document.querySelector('.game-window'),
   playerWindow: document.querySelector('.player-window'),
   opponentWindow: document.querySelector('.opponent-window'),
   playerBoard () {
@@ -36,7 +37,7 @@ const domHandler = {
           this.playerWindow.textContent = ''
           drawPlayerBoard(Game.boards[0], this.playerWindow)
         }
-        if (Game.isGameWon()) console.log('Game over!')
+        if (Game.isGameWon()) this.showWinnerMessage()
       })
     }
   },
@@ -72,6 +73,9 @@ const domHandler = {
         }
 
         if (Game.playerShips.length === 0) {
+          this.gameWindow.style.gridTemplateColumns = '1fr 1fr'
+          this.toggleOpponentBoard()
+          this.hideMessageDisplay()
           this.toggleOrientationSwitch()
           this.listenForAttack()
         }
@@ -82,6 +86,31 @@ const domHandler = {
     const orientationSwitch = document.querySelector('.orientation-switch')
 
     orientationSwitch.classList.toggle('hidden')
+  },
+  handleNewGamePress () {
+    const newGameButton = document.querySelector('.new-game-button')
+
+    newGameButton.addEventListener('click', () => {
+      document.location.reload()
+    })
+  },
+  hideMessageDisplay () {
+    const messageDisplay = document.querySelector('.message-display')
+    messageDisplay.innerText = ''
+  },
+  showWinnerMessage () {
+    const messageDisplay = document.querySelector('.message-display')
+    const winner = Game.players.find((player, index) => {
+      return !Game.boards[index].isAllSunk()
+    })
+    if (!winner.isComputer) {
+      messageDisplay.innerText = 'Game over, you win!'
+      return null
+    }
+    messageDisplay.innerText = 'Game over, you lost!'
+  },
+  toggleOpponentBoard () {
+    this.opponentWindow.classList.toggle('hidden')
   }
 }
 

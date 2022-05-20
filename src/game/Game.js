@@ -54,6 +54,7 @@ const Game = (() => {
 
     domHandler.drawBoards(playerBoard, computerBoard)
     domHandler.waitForPlayerPlacement()
+    domHandler.handleNewGamePress()
   }
 
   return { isGameWon, start, players, boards, playerShips, computerShips }
